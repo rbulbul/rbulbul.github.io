@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.ezber.ezber",
+      "sha256_cert_fingerprints": [
+        "A7:DE:BB:2A:BA:B6:74:77:13:AE:53:8C:F1:0F:2E:80:2D:2C:79:46:0F:07:5C:6B:61:12:C6:59:C5:E9:2A:FC"
+      ]
+    }
+  }
+]

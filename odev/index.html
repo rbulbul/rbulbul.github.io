@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HifzHub ödevi</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../icon.svg">
+<style>
+:root{--bg:#FFFBEA;--ink:#3F3F3F;--olive:#7A8B3C;--olive2:#5E7A2E;--soft:#E7EBD6;--muted:#77735f}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font:17px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;align-items:center;justify-content:center;padding:24px 16px}
+main{width:100%;max-width:420px;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
+img{width:84px;height:84px;border-radius:20px}
+h1{margin:0;font-size:26px;font-weight:800;text-wrap:balance}
+.range{font-size:44px;font-weight:900;color:var(--olive2);font-variant-numeric:tabular-nums}
+.btn{display:block;width:100%;padding:16px;border-radius:999px;background:var(--olive);color:#fff;font-weight:800;font-size:19px;text-decoration:none}
+.btn:focus-visible{outline:3px solid #C98A1E;outline-offset:3px}
+p{margin:0}.muted{color:var(--muted);font-size:14.5px}
+.err{background:var(--soft);border-radius:14px;padding:14px}
+</style>
+</head>
+<body>
+<main>
+  <img src="../icon.svg" alt="HifzHub">
+  <h1 id="title"></h1>
+  <div class="range" id="range"></div>
+  <a class="btn" id="open" href="#"></a>
+  <p class="muted" id="hint"></p>
+</main>
+<script>
+(function(){
+  var T={
+    tr:{title:"Bu haftanın ödevi",names:"arası isimler",open:"HifzHub'da aç",hint:"Düğme çalışmazsa HifzHub'ı aç ve bu aralığı kendin seç. Uygulama telefonunda yoksa hocandan iste.",bad:"Bu bağlantıda bir hata var. Hocana sor."},
+    nl:{title:"Huiswerk van deze week",names:"namen",open:"Open in HifzHub",hint:"Werkt de knop niet? Open HifzHub en kies deze namen zelf. Heb je de app nog niet, vraag hem dan aan je leraar.",bad:"Er klopt iets niet met deze link. Vraag het aan je leraar."},
+    en:{title:"This week's homework",names:"names",open:"Open in HifzHub",hint:"If the button doesn't work, open HifzHub and choose these names yourself. If you don't have the app yet, ask your teacher.",bad:"Something is wrong with this link. Ask your teacher."}
+  };
+  var l=(navigator.language||"tr").slice(0,2).toLowerCase(); var t=T[l]||T.tr;
+  document.documentElement.lang=T[l]?l:"tr";
+  var m=/^\??(\d{1,2})-(\d{1,2})$/.exec(decodeURIComponent(location.search||""));
+  var s=m&&+m[1], e=m&&+m[2];
+  var ok=m&&s>=1&&e<=99&&s<=e;
+  document.getElementById("title").textContent=ok?t.title:"HifzHub";
+  if(!ok){
+    document.getElementById("range").hidden=true; document.getElementById("open").hidden=true;
+    var h=document.getElementById("hint"); h.textContent=t.bad; h.className="err"; return;
+  }
+  document.getElementById("range").textContent=s+" – "+e;
+  document.getElementById("range").setAttribute("aria-label",s+"-"+e+" "+t.names);
+  var a=document.getElementById("open");
+  a.textContent=t.open;
+  a.href="intent://odev/?"+s+"-"+e+"#Intent;scheme=hifzhub;package=com.ezber.ezber;end";
+  document.getElementById("hint").textContent=t.hint;
+})();
+</script>
+</body>
+</html>
