@@ -37,7 +37,8 @@ p{margin:0}.muted{color:var(--muted);font-size:14.5px}
   };
   var l=(navigator.language||"tr").slice(0,2).toLowerCase(); var t=T[l]||T.tr;
   document.documentElement.lang=T[l]?l:"tr";
-  var m=/^\??(\d{1,2})-(\d{1,2})$/.exec(decodeURIComponent(location.search||""));
+  var q=""; try{q=decodeURIComponent(location.search||"")}catch(x){q=""}
+  var m=/^\??(\d{1,2})-(\d{1,2})$/.exec(q);
   var s=m&&+m[1], e=m&&+m[2];
   var ok=m&&s>=1&&e<=99&&s<=e;
   document.getElementById("title").textContent=ok?t.title:"HifzHub";
@@ -49,7 +50,7 @@ p{margin:0}.muted{color:var(--muted);font-size:14.5px}
   document.getElementById("range").setAttribute("aria-label",s+"-"+e+" "+t.names);
   var a=document.getElementById("open");
   a.textContent=t.open;
-  a.href="intent://odev/?"+s+"-"+e+"#Intent;scheme=hifzhub;package=com.ezber.ezber;end";
+  a.href="intent://odev/?"+s+"-"+e+"#Intent;scheme=hifzhub;package=com.ezber.ezber;S.browser_fallback_url="+encodeURIComponent(location.href)+";end";
   document.getElementById("hint").textContent=t.hint;
 })();
 </script>
